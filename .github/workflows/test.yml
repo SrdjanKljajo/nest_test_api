@@ -1,0 +1,14 @@
+name: e2e Test
+
+on:
+  push:
+    branches:
+      - 'development'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: End-to-End Testing
+        run: npm run docker:test

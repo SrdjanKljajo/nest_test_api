@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  hash      String
+  firstName String?
+  lastName  String?
+  articles  Article[]
+  bookmarks Bookmark[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("users")
+}
+
+model Bookmark {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  link        String
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("bookmarks")
+}
+
+model Category {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  categoryName String        @unique
+  categories   SubCategory[]
+  articles     Article[]
+
+  @@map("categories")
+}
+
+model SubCategory {
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  subCategoryName String    @unique
+  categoryId      Int
+  category        Category  @relation(fields: [categoryId], references: [id])
+  articles        Article[]
+
+  @@map("sub_categories")
+}
+
+model Article {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  title         String      @unique
+  body          String?
+  userId        Int
+  categoryId    Int
+  subCategoryId Int
+  user          User        @relation(fields: [userId], references: [id])
+  category      Category    @relation(fields: [categoryId], references: [id])
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id])
+
+  @@map("articles")
+}

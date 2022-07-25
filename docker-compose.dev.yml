@@ -1,0 +1,18 @@
+version: "3.8"
+services: 
+  nest_api:  
+    image: nest_api
+    restart: always
+    build:
+     dockerfile: Dockerfile
+     context: .
+     target: development
+    ports:
+      - 4444:4444
+    command: npm run start:migrate:dev
+    env_file:
+      - .env
+    depends_on:
+      - dev_db
+    networks:
+     - websmart    

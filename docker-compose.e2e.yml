@@ -1,0 +1,34 @@
+version: "3.8"
+services: 
+  nest_api_test:  
+    image: nest_test
+    build:
+     dockerfile: Dockerfile
+     context: .
+     target: development
+    ports:
+      - 4444:4444
+    command: npm run start:migrate:test
+    env_file:
+      - .env.test
+    depends_on:
+      - test_db
+    networks:
+     - websmart 
+
+  test_db:
+    image: postgres:13
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env.test
+    volumes:
+      - db_data:/var/lib/postgresql/data   
+    networks:
+      - websmart  
+
+volumes:
+  db_data:      
+networks:
+  websmart:             
