@@ -1,5 +1,3 @@
-Thank you for your contribution to the Websmartist repo.
-
 <h3>Before submitting this PR, please make sure:</h3>
 
 - [ ] Your code builds clean without any errors or warnings
