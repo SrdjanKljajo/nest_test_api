@@ -1,8 +1,9 @@
-import { Controller, Get, HttpCode } from '@nestjs/common';
+import { CacheKey, Controller, Get, HttpCode } from '@nestjs/common';
 
-@Controller('/')
+@Controller('healthcheck')
 export class AppController {
   @Get()
+  @CacheKey('healthcheck')
   @HttpCode(200)
   getHello(): string {
     return 'Healthcheck';

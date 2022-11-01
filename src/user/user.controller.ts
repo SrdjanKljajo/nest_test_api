@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  CacheKey,
+  Controller,
+  Get,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import { JwtGuard } from '../auth/guard';
@@ -12,6 +19,12 @@ export class UserController {
   @Get('me')
   getMe(@GetUser() user: User) {
     return user;
+  }
+
+  @Get()
+  @CacheKey('users')
+  getUsers(): Promise<User[]> {
+    return this.userService.getUsers();
   }
   // if you want one item ( it is posible because of [data] in custom decorator)
   /*getMe(@GetUser('email') user: string) {

@@ -36,7 +36,7 @@ describe('App e2e', () => {
 
   describe('Healthcheck', () => {
     it('should get healthcheck', () => {
-      return pactum.spec().get('/').expectStatus(200);
+      return pactum.spec().get('/healthcheck').expectStatus(200);
     });
   });
 
@@ -181,8 +181,7 @@ describe('App e2e', () => {
           .withHeaders({
             Authorization: 'Bearer $S{userAt}',
           })
-          .expectStatus(200)
-          .expectJsonLength(1);
+          .expectStatus(200);
       });
     });
 
