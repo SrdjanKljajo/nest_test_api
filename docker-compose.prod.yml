@@ -26,5 +26,6 @@ services:
       - .env
     depends_on:
       - dev_db
+      - redis
     networks:
      - websmart

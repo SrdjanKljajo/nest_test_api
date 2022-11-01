@@ -1,5 +1,14 @@
 version: '3.8'
 services:
+  redis: # Name of container
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    volumes: 
+      - redis:/data
+    networks:
+      - websmart
   dev_db:
     image: postgres:13
     restart: always
@@ -11,8 +20,10 @@ services:
       - db_data:/var/lib/postgresql/data   
     networks:
       - websmart
-
 volumes:
-  db_data:      
+  db_data: 
+  redis:
+    driver: local   
+
 networks:
   websmart:
