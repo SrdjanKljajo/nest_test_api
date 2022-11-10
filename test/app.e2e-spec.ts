@@ -36,7 +36,7 @@ describe('App e2e', () => {
 
   describe('Healthcheck', () => {
     it('should get healthcheck', () => {
-      return pactum.spec().get('/healthcheck').expectStatus(200);
+      return pactum.spec().get('/').expectStatus(200);
     });
   });
 
