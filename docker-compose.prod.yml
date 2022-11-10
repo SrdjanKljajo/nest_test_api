@@ -10,7 +10,7 @@ services:
     - websmart
 
   nest_api:
-    image: srdjankljajo/test_api 
+    image: srdjankljajo/nest_api 
     deploy:
      replicas: 2
      restart_policy:

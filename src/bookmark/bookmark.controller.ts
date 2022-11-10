@@ -1,7 +1,6 @@
 import {
   Body,
   CacheKey,
-  CacheTTL,
   Controller,
   Delete,
   Get,
