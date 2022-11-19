@@ -11,7 +11,7 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { User } from '@prisma/client';
 import { Roles } from '../auth/decorator/roles.decorator';
-import { moderator, admin } from 'src/utils/roleHandler';
+import { moderator, admin } from '../utils/roleHandler';
 import { GetUser } from '../auth/decorator/get-user.decorator';
 import { JwtGuard, RolesGuard } from '../auth/guard';
 import { EditUserDto } from './dto';
