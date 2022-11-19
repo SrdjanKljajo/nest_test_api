@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { EditUserDto } from './dto';
 
@@ -7,11 +6,34 @@ import { EditUserDto } from './dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async getUsers(): Promise<User[]> {
-    return this.prisma.user.findMany();
+  async getUsers() {
+    return await this.prisma.user.findMany({
+      select: {
+        email: true,
+        firstName: true,
+        lastName: true,
+        bookmarks: true,
+      },
+    });
   }
 
   async editUser(userId: number, dto: EditUserDto) {
+    const user = await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+      },
+    });
+
+    delete user.hash;
+
+    return user;
+  }
+
+  async adminEditUser(userId: number, dto: EditUserDto) {
     const user = await this.prisma.user.update({
       where: {
         id: userId,
@@ -23,6 +45,9 @@ export class UserService {
 
     delete user.hash;
 
-    return user;
+    return {
+      msg: 'User updated successfuly',
+      updatedUser: user,
+    };
   }
 }

@@ -10,12 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  AUTHOR
+  MODERATOR
+  ADMIN
+}
+
 model User {
   id        Int        @id @default(autoincrement())
   email     String     @unique
   hash      String
   firstName String?
   lastName  String?
+  role      UserRole   @default(USER)
   bookmarks Bookmark[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
