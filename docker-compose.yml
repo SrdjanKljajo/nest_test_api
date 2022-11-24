@@ -9,7 +9,7 @@ services:
       - redis:/data
     networks:
       - websmart
-  dev_db:
+  postgres:
     image: postgres:13
     restart: always
     ports:
