@@ -44,6 +44,11 @@ export class UserController {
     return this.userService.editUser(userId, dto);
   }
 
+  @Get(':id/profile-img')
+  getUserProfilePicture(@GetUser('id') userId: number) {
+    return this.userService.getUserProfilePicture(userId);
+  }
+
   @Roles(moderator, admin)
   @Patch(':id')
   adminEditUser(
