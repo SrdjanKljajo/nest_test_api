@@ -12,6 +12,7 @@ export class UserService {
         email: true,
         firstName: true,
         lastName: true,
+        picture: true,
         bookmarks: true,
       },
     });
@@ -31,6 +32,16 @@ export class UserService {
     delete user.hash;
 
     return user;
+  }
+
+  async getUserProfilePicture(userId: number) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    return user.picture;
   }
 
   async adminEditUser(userId: number, dto: EditUserDto) {

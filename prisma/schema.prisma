@@ -23,6 +23,7 @@ model User {
   hash      String
   firstName String?
   lastName  String?
+  picture   String?
   role      UserRole   @default(USER)
   bookmarks Bookmark[]
   createdAt DateTime   @default(now())
@@ -42,4 +43,15 @@ model Bookmark {
   updatedAt   DateTime @updatedAt
 
   @@map("bookmarks")
+}
+
+model PublicFile {
+  id        Int      @id @default(autoincrement())
+  fileName  String
+  fileUrl   String
+  key       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("files")
 }
