@@ -9,6 +9,7 @@ import { redisStore } from 'cache-manager-redis-store';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { FilesModule } from './files/files.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FilesModule } from './files/files.module';
     UserModule,
     PrismaModule,
     FilesModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [
