@@ -24,6 +24,17 @@ async function bootstrap() {
     .setTitle('Nest starter')
     .setDescription('Building nest starter api')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        description: `Please enter token in following format: Bearer <JWT>`,
+        name: 'Authorization',
+        bearerFormat: 'Bearer',
+        scheme: 'Bearer',
+        type: 'http',
+        in: 'Header',
+      },
+      'access_token', // This name here is important for matching up with @ApiBearerAuth() in your controller!
+    )
     .build();
   const document = SwaggerModule.createDocument(app, configSwg);
   SwaggerModule.setup('api', app, document, { customSiteTitle: 'Nest start' });

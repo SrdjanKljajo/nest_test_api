@@ -11,7 +11,7 @@ export class FileUploadService {
     private readonly configService: ConfigService,
   ) {}
 
-  async uploadFile(dataBuffer: Buffer, fileName: string, mimetype: any) {
+  async uploadFile(dataBuffer: Buffer, fileName: string, mimetype: string) {
     const s3 = new S3();
     const uploadResult = await s3
       .upload({
