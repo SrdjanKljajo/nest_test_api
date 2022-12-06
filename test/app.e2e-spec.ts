@@ -34,12 +34,6 @@ describe('App e2e', () => {
     app.close();
   });
 
-  describe('Healthcheck', () => {
-    it('should get healthcheck', () => {
-      return pactum.spec().get('/healthcheck').expectStatus(200);
-    });
-  });
-
   describe('Auth', () => {
     const dto: AuthDto = {
       email: 'srdjan@gmail.com',
