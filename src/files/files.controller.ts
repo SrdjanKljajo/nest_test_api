@@ -19,9 +19,11 @@ import { FileUploadService } from './files.service';
 import { JwtGuard, RolesGuard } from '../auth/guard';
 import { Roles } from '../auth/decorator/roles.decorator';
 import { moderator, admin } from '../utils/roleHandler';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 
 @UseGuards(JwtGuard, RolesGuard)
-@Controller('/profile-img')
+@Controller('/avatar')
+@ApiBearerAuth('access_token')
 export class FileController {
   constructor(
     private fileUploadService: FileUploadService,
@@ -36,9 +38,22 @@ export class FileController {
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   async uploadFile(
     @GetUser('id') userId: number,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile()
+    file: Express.Multer.File,
   ) {
     const uploadedFile = await this.fileUploadService.uploadFile(
       file.buffer,

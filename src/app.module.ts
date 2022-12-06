@@ -1,5 +1,4 @@
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { BookmarkModule } from './bookmark/bookmark.module';
 import { AuthModule } from './auth/auth.module';
@@ -33,7 +32,7 @@ import { HealthModule } from './health/health.module';
     FilesModule,
     HealthModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
     {
       provide: APP_INTERCEPTOR,

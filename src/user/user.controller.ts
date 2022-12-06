@@ -16,8 +16,10 @@ import { GetUser } from '../auth/decorator/get-user.decorator';
 import { JwtGuard, RolesGuard } from '../auth/guard';
 import { EditUserDto } from './dto';
 import { UserService } from './user.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @UseGuards(JwtGuard, RolesGuard)
+@ApiBearerAuth('access_token')
 @Throttle(3, 10) // custom rate limit for route - 3 req in 10 sec
 @Controller('users')
 export class UserController {
@@ -44,7 +46,7 @@ export class UserController {
     return this.userService.editUser(userId, dto);
   }
 
-  @Get(':id/profile-img')
+  @Get(':id/avatar')
   getUserProfilePicture(@GetUser('id') userId: number) {
     return this.userService.getUserProfilePicture(userId);
   }
