@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Post,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
 } from '@nestjs/common';
 import { Express } from 'express';
@@ -19,7 +20,7 @@ import { JwtGuard, RolesGuard } from '../auth/guard';
 import { Roles } from '../auth/decorator/roles.decorator';
 import { moderator, admin } from '../utils/roleHandler';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { ApiFile } from './api-file.decorator';
+import { ApiFile, ApiFiles } from './api-file.decorator';
 
 @UseGuards(JwtGuard, RolesGuard)
 @Controller('/avatar')
@@ -62,6 +63,12 @@ export class FileController {
 
       return user.picture;
     }
+  }
+
+  @Post('/upload-files')
+  @ApiFiles()
+  async uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
