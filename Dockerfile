@@ -48,6 +48,7 @@ RUN npm ci --omit=dev && npm cache clean --force
 ############
 
 FROM node:18-alpine AS production
+RUN apk add --no-cache libc6-compat openssl1.1-compat
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
