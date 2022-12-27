@@ -3,6 +3,7 @@
 #############################
 
 FROM node:18-alpine As development
+RUN apk add --no-cache libc6-compat openssl1.1-compat
 
 # Create app directory
 WORKDIR /app
@@ -25,6 +26,7 @@ COPY . .
 ######################
 
 FROM node:18-alpine AS builder
+RUN apk add --no-cache libc6-compat openssl1.1-compat
 
 WORKDIR /app
 
